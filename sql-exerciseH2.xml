@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exerciseH2">  
+
+
+<insert id="add_category">
+    INSERT INTO py_category
+    (category_name,
+    mod_date,
+    reg_date)
+    VALUES
+    (#{category_name},
+    now(),
+    now())
+</insert>
+
+
+<update id="update_category">
+    UPDATE py_category
+    SET
+    category_name = #{category_name},
+    mod_date = now()
+    WHERE cust_seq = #{cust_seq};
+</update>
+
+
+<delete id="delete_category">
+    DELETE FROM py_category
+    WHERE cust_seq = #{cust_seq};
+</delete>
+
+<select id="read_category">
+    SELECT * FROM py_category
+</select>
+
+<insert id="add_product">
+    INSERT INTO py_product
+    (product_name,
+    product_price,
+    product_content,
+    product_cate,
+    mod_date,
+    reg_date)
+    VALUES
+    (#{product_name},
+    #{product_price},
+    #{product_content},
+    #{product_cate},
+    now(),
+    now())
+</insert>
+
+<update id="update_product">
+    UPDATE py_product
+    SET
+    product_name = #{product_name},
+    product_price = #{product_price},
+    product_content = #{product_content},
+    product_cate = #{product_cate},
+    mod_date = now()
+    WHERE cust_seq = #{cust_seq};
+</update>
+
+<delete id="delete_product">
+    DELETE FROM py_product
+    WHERE cust_seq = #{cust_seq};
+</delete> 
+
+<select id="read_product">
+    SELECT * FROM py_product
+</select>
+
+<insert id="add_sales">
+    INSERT INTO py_sales
+    (title,
+    sale_number,
+    mod_date,
+    reg_date)
+    VALUES
+    (#{title},
+    #{sale_number},
+    now(),
+    now())
+</insert>
+
+<update id="update_sale">
+    UPDATE py_sales
+    SET
+    title = #{title},
+    sale_number = #{sale_number},
+    mod_date = now()
+    WHERE cust_seq = #{cust_seq};
+</update>
+
+<delete id="delete_sale">
+    DELETE FROM py_sales
+    WHERE cust_seq = #{cust_seq};
+</delete> 
+
+<select id="read_sale">
+    SELECT * FROM py_sales
+</select>
+
+<insert id="add_sale_cust_seq">
+    INSERT INTO py_sales_category
+    (category_cust_seq,
+    sale_cust_seq,
+    mod_date,
+    reg_date)
+    VALUES
+    (#{category_cust_seq},
+    #{sale_cust_seq},
+    now(),
+    now())
+</insert>
+
+
+<update id="update_sale_category">
+    UPDATE py_sales_category
+    SET
+    category_cust_seq = #{category_cust_seq},
+    sale_cust_seq = #{sale_cust_seq},
+    mod_date = now()
+    WHERE cust_seq = #{cust_seq};
+</update>
+
+<delete id="delete_sale_category">
+    DELETE FROM py_sales_category
+    WHERE cust_seq = #{cust_seq};
+</delete> 
+
+
+<select id="read_sales_category">
+    SELECT * FROM py_sales_category
+</select>
+
+
+</mapper>

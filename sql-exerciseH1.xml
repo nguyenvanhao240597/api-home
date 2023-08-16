@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="exercise">  
+
+<insert id="add_py_member_log">
+	INSERT INTO py_member_log(member_log_nm,
+    content,
+    reg_date)
+    VALUES (#{member_log_nm},
+    #{content},
+    now());
+</insert>
+
+<insert id="add_py_member_grp">
+	INSERT INTO py_member_grp(member_grp_nm,
+    ip,
+    reg_date)
+    VALUES (#{member_grp_nm},
+    #{ip},
+    now());
+</insert>
+
+
+
+<update id="update_py_member_grp">
+    UPDATE py_member_grp
+    SET member_grp_nm = #{member_grp_nm}, 
+    ip = #{ip}, 
+    mod_date = now() 
+    WHERE member_grp_cd = #{member_grp_cd};
+</update>
+
+
+<insert id="add_py_member">
+	INSERT INTO py_member(user_id, 
+    passwd, 
+    user_nm, 
+    phone, 
+    address, 
+    email, 
+    ip, 
+    member_grp_cd, 
+    reg_date)
+    VALUES (#{user_id},
+    #{passwd},
+    #{user_nm},
+    #{phone},
+    #{address},
+    #{email},
+    #{ip},
+    #{member_grp_cd},
+    now());
+</insert>
+
+
+<insert id="update_py_member">
+	UPDATE py_member
+    SET user_id = #{user_id}, 
+    passwd = #{passwd}, 
+    user_nm = #{user_nm},
+    phone = #{phone},
+    address = #{address},
+    email = #{email},
+    ip = #{ip},
+    member_grp_cd = #{member_grp_cd},
+    mod_date = now()
+    WHERE cust_seq = #{cust_seq};
+</insert>
+
+
+<delete id="delete_py_member">
+    DELETE FROM py_member 
+    WHERE use_yn = #{use_yn};
+</delete>
+
+
+<select id="count_py_member_xx">
+    SELECT count(cust_seq) as number FROM py_member 
+    WHERE use_yn = #{use_yn};
+</select>
+
+
+<select id="select_py_member_top5desc">
+    SELECT member_grp_nm, user_nm, phone, address , py_member.reg_date 
+    FROM py_member 
+    LEFT JOIN py_member_grp 
+    ON py_member.member_grp_cd = py_member_grp.member_grp_cd
+    ORDER BY py_member.reg_date 
+    DESC LIMIT 4;
+</select>
+
+
+</mapper>
